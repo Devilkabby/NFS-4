@@ -31,13 +31,18 @@ class Game {
         
             car1 = createSprite(100,200);
             car1.addImage("car1",car1_img);
+            car1.debug="true";
             car2 = createSprite(300,200);
             car2.addImage("car2",car2_img);
+            car2.debug="true";
             car3 = createSprite(500,200);
             car3.addImage("car3",car3_img);
+            car3.debug="true";
             car4 = createSprite(700,200);
             car4.addImage("car4",car4_img);
+            car4.debug="true";
             cars = [car1, car2, car3, car4];
+            passedFinish = false;
           }
         
           play(){
@@ -74,6 +79,11 @@ class Game {
                   cars[index - 1].shapeColor = "red";
                   camera.position.x = displayWidth/2;
                   camera.position.y = cars[index-1].y
+                  if(cars[index-1].isTouching(obstaclesGroup)){
+                    yVel-=0.9
+                    car_sound.play();
+                    sliding_sound.play();
+                  }
                 }
                
               }
@@ -96,6 +106,8 @@ class Game {
               }else{
                   yVel *= 0.985;
                   xVel *= 0.985;
+              }else if(passedFinish === false){
+                
               }
             }
         
